@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Potato';
+  @ViewChild('footerContent') refFooter: ElementRef;
+  offset = `0px`;
+
+  constructor() { }
+
+  ngOnInit() {
+    this.onResize(null);
+  }
+
+  // ウィンドウのリサイズイベント
+  onResize(event) {
+    const mergin = (this.refFooter.nativeElement.offsetHeight || 0);
+    this.offset = `${mergin}px`;
+  }
 }
